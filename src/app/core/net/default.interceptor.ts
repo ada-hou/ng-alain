@@ -54,14 +54,6 @@ export class DefaultInterceptor implements HttpInterceptor {
                         break;
                     case 200:
                         // 业务层级错误处理
-                        let statusCode = res.body["statusCode"];
-                        // switch (statusCode) {
-                        //     case 401:
-                        //         this.goLogin();
-                        //         break;
-                        // }
-                        this.goLogin();
-                        console.log('业务错误, ' + statusCode);
                         break;
                     case 404:
                         // 404

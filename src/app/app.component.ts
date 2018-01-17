@@ -3,7 +3,10 @@ import { Router, NavigationEnd } from '@angular/router';
 import { ThemesService, SettingsService, TitleService, _HttpClient } from '@delon/theme';
 import { filter, map } from 'rxjs/operators';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { CommonResult } from 'app/model/common/common-result';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import { HttpStatus } from 'app/enum/http-status.enum';
 
 @Component({
     selector: 'app-root',
@@ -15,9 +18,10 @@ export class AppComponent implements OnInit {
     @HostBinding('class.layout-boxed') get isBoxed() { return this.settings.layout.boxed; }
     @HostBinding('class.aside-collapsed') get isCollapsed() { return this.settings.layout.collapsed; }
 
+    public userMenuInfoSub: Subscription;
+
     constructor(
         private http: HttpClient,
-        private _http: _HttpClient,
         private theme: ThemesService,
         private settings: SettingsService,
         private router: Router,
@@ -32,15 +36,23 @@ export class AppComponent implements OnInit {
             .subscribe(url => {
                 this.titleSrv.setTitleByUrl(url);
             });
-
-        const headers = new HttpHeaders()
-            .set('x-requested-with', 'XMLHttpRequest')
-            .set('Content-Type', 'application/x-www-form-urlencoded');
-
-        this._http.post('sys/menu/ajaxList', {}, {}, { withCredentials: true, headers: headers })
-            .subscribe((res: any) => {
-                let a = res;
-                console.log(a);
-            });
+        //this.getUserMenuInfo();
     }
+
+    // public getUserMenuInfo() {
+    //     this.userService.getUserMenuInfo();
+    //     this.userMenuInfoSub = this.userService.userMenu
+    //         .debounceTime(100).distinctUntilChanged().subscribe(
+    //         data => {
+    //             console.log(data);
+    //             if (data.statusCode == HttpStatus.OK) {
+    //                 // 写入缓存
+    //             } else if (data.statusCode == HttpStatus.Unauthorized) {
+    //                 // 跳转login
+    //                 //this.router.navigate(['passport/login']);
+    //             }
+    //         },
+    //         error => console.error(error)
+    //         );
+    // }
 }

@@ -5,7 +5,7 @@
             <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
             <div nz-form-item>
                 <div nz-form-control [nzValidateStatus]="userName">
-                    <nz-input formControlName="userName" [nzPlaceHolder]="'admin'" [nzSize]="'large'">
+                    <nz-input formControlName="userName" [nzPlaceHolder]="'登录名'" [nzSize]="'large'">
                         <ng-template #prefix>
                             <i class="anticon anticon-user"></i>
                         </ng-template>
@@ -18,7 +18,7 @@
             </div>
             <div nz-form-item>
                 <div nz-form-control [nzValidateStatus]="password">
-                    <nz-input formControlName="password" [nzPlaceHolder]="'888888'" [nzType]="'password'" [nzSize]="'large'">
+                    <nz-input formControlName="password" [nzPlaceHolder]="'密码'" [nzType]="'password'" [nzSize]="'large'">
                         <ng-template #prefix>
                             <i class="anticon anticon-lock"></i>
                         </ng-template>

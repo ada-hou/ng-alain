@@ -21,6 +21,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ALAIN_I18N_TOKEN } from '@delon/theme';
 import { I18NService } from '@core/i18n/i18n.service';
+import { AuthUserService } from './service/auth-user.service';
+import { SysEndService } from './service/sys-end.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -64,7 +66,9 @@ export function StartupServiceFactory(startupService: StartupService): Function 
             useFactory: StartupServiceFactory,
             deps: [StartupService],
             multi: true
-        }
+        },
+        AuthUserService,
+        SysEndService
     ],
     bootstrap: [AppComponent]
 })
