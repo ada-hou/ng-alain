@@ -8,5 +8,6 @@ export const environment = {
     SERVER_URL: `/ada-platform/admin/`,
     production: false,
     hmr: false,
-    useHash: false
+    useHash: false,
+    login_url: `passport/login`
 };

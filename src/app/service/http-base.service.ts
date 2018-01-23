@@ -8,6 +8,7 @@ import { ICommonResult } from 'app/interface/common/common-result';
 @Injectable()
 export class HttpBaseService {
 
+    public readonly loading: boolean;
     constructor(
         public http: HttpClient
     ) { }
@@ -26,7 +27,8 @@ export class HttpBaseService {
 
     public _post<T>(url, body = {}, config = {}): Observable<ICommonResult<T>> {
         // TODO
-        // 这里特意将ICommonResult暴露出来，可以统一处理错误
+        // 这里特意将ICommonResult暴露出来，可以统一处理错误, 或者在http拦截器哪里实现
+        // 这里可以统一所有的loading状态
         return this.http.post<ICommonResult<T>>(url, body, {headers: this.ajaxHeader(), ...config});
     }
 

@@ -8,6 +8,7 @@ import { AuthUserService } from '../../../service/auth-user.service';
 import { Subscription } from 'rxjs';
 import { HttpStatus } from 'app/enum/http-status.enum';
 import { ISysPlatformUser } from 'app/interface/init-interface';
+import { SysEndService } from 'app/service/sys-end.service';
 
 @Component({
     selector: 'passport-login',
@@ -32,6 +33,7 @@ export class UserLoginComponent implements OnDestroy {
         fb: FormBuilder,
         private router: Router,
         private authUserService: AuthUserService,
+        private sysEndService: SysEndService,
         //public msg: NzMessageService,
         private settingsService: SettingsService
     ) {
@@ -45,24 +47,24 @@ export class UserLoginComponent implements OnDestroy {
     }
 
     ngOnInit() {
-        this.checkIsLogin();
+        //this.checkIsLogin();
     }
 
-    public checkIsLogin() {
-        this.authUserService.getLoginState();
-        this.subLoginState = this.authUserService.userIsLoginOb
-            .debounceTime(100).distinctUntilChanged().subscribe(
-            data => {
-                this.isLogin = data.entity;
-                if (this.isLogin == true) {
-                    this.router.navigate([this.authUserService.getRedirectUrl()]);
-                }
-            },
-            error => {
-                console.error(error);
-            }
-            );
-    }
+    // public checkIsLogin() {
+    //     this.authUserService.getLoginState();
+    //     this.subLoginState = this.authUserService.userIsLoginOb
+    //         .debounceTime(100).distinctUntilChanged().subscribe(
+    //         data => {
+    //             this.isLogin = data.entity;
+    //             if (this.isLogin == true) {
+    //                 this.router.navigate([this.authUserService.getRedirectUrl()]);
+    //             }
+    //         },
+    //         error => {
+    //             console.error(error);
+    //         }
+    //         );
+    // }
     // region: fields
 
     get userName() { return this.form.controls.userName; }
@@ -102,18 +104,18 @@ export class UserLoginComponent implements OnDestroy {
         }
 
         this.loading = true;
-        this.authUserService.doLogin(this.userName.value, this.password.value);
-        this.subDoLogin = this.authUserService.userDoLoginOb
-            .debounceTime(100).distinctUntilChanged().subscribe(
+        this.authUserService.doLogin(this.userName.value, this.password.value).subscribe(
             data => {
                 this.loading = false;
                 this.doLoginResult = data;
                 if (this.doLoginResult.statusCode == HttpStatus.OK) {
+                    this.authUserService.isLogin = true;
                     let res = this.authUserService.getRedirectUrl();
                     //console.log(res);
                     this.authUserService.reSetRedirectUrl();
                     this.router.navigate([res]);
                 } else {
+                    this.authUserService.isLogin = false;
                     this.error = this.doLoginResult.message;
                 }
             },
@@ -121,7 +123,7 @@ export class UserLoginComponent implements OnDestroy {
                 this.loading = false;
                 console.error(error);
             }
-            );
+        );
         // setTimeout(() => {
         //     this.loading = false;
         //     if (this.type === 0) {

@@ -12,6 +12,7 @@ import { LayoutModule } from './layout/layout.module';
 import { StartupService } from '@core/startup/startup.service';
 import { DefaultInterceptor } from '@core/net/default.interceptor';
 import { SimpleInterceptor } from '@delon/auth';
+import { Ng2Webstorage } from 'ngx-webstorage';
 // angular i18n
 import { registerLocaleData } from '@angular/common';
 import localeZhHans from '@angular/common/locales/zh-Hans';
@@ -46,6 +47,7 @@ export function StartupServiceFactory(startupService: StartupService): Function 
         SharedModule,
         LayoutModule,
         RoutesModule,
+        Ng2Webstorage,
         // i18n
         TranslateModule.forRoot({
             loader: {
