@@ -12,29 +12,30 @@
 
 ## 快速入门
 
-确保 `node` 版本 >= 6.9.0 且 `npm` 版本 >= 3 以上。
+有二种方式进行安装：
 
-`ng-alain` 本身并非组件库，只是一个单纯的企业后台模板，你可以**直接克隆**到你的本地，然后立即进入实际开发。
+### 命令行工具
+
+需要依赖于 `@delon/cli`，[如何安装？](http://ng-alain.com/docs/cli)
 
 ```bash
-# clone a blank ng-alain repo, just only basic function
-#   --depth 1 removes all but one .git commit history
-git clone -b blank --depth 1 https://github.com/cipchk/ng-alain.git
-# or full master branch
-git clone --depth 1 https://github.com/cipchk/ng-alain.git
+ng new -c=@delon/cli my-app
+```
 
-# change directory
-cd ng-alain
+### 直接 clone git 仓库
 
-# install npm package
+```bash
+$ git clone --depth=1 https://github.com/cipchk/ng-alain.git my-project
+
+cd my-project
+
+# 安装依赖包
 npm install
-# in china please use cnpm （https://github.com/cnpm/cnpm）
-# cnpm install
 
-# start the serve
+# 启动
 npm start
 
-# use HMR
+# 使用HMR启动
 npm run serve:hmr
 ```
 
@@ -85,7 +86,8 @@ npm run serve:hmr
 + 良好的目录组织结构
 + 简单升级
 + 模块热替换
-+ 支持[Docker](_documents/docker.md)部署
++ 支持Docker部署
++ 支持[Electron](http://ng-alain.com/docs/cli#electron)打包（限cli构建）
 
 ## 应用截图
 
