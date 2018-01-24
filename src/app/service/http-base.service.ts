@@ -8,7 +8,8 @@ import { ICommonResult } from 'app/interface/common/common-result';
 @Injectable()
 export class HttpBaseService {
 
-    public readonly loading: boolean;
+    public loading: boolean = true;
+
     constructor(
         public http: HttpClient
     ) { }

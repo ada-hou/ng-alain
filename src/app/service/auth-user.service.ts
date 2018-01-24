@@ -13,8 +13,6 @@ import { IPlatformMenu } from 'app/interface/sys/platform-menu';
 @Injectable()
 export class AuthUserService extends HttpBaseService{
 
-    public isLogin: boolean = false;
-
     private defaultUrl = "/";
     private redirectUrl: string = this.defaultUrl; // 登录后跳转链接，默认/
 
@@ -51,10 +49,26 @@ export class AuthUserService extends HttpBaseService{
         this.redirectUrl = this.defaultUrl;
     }
 
-    public getLoginState() {
-        this._post<boolean>(this.userIsLoginUrl, {}).subscribe(
+    public getLoginState(): Observable<ICommonResult<boolean>> {
+        return this._post<boolean>(this.userIsLoginUrl, {});
+        // this._post<boolean>(this.userIsLoginUrl, {}).subscribe(
+        //     data => {
+        //         this.isLogin = data.entity;
+        //     },
+        //     (err: HttpErrorResponse) => {
+        //         if (err.error instanceof Error) {
+        //             console.log('An error occurred:', err.error.message);
+        //         } else {
+        //             console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+        //         }
+        //     }
+        // );
+    }
+
+    public getLoginState1(): Observable<boolean> {
+        this._post<boolean>(this.userIsLoginUrl, {})._do(
             data => {
-                this.isLogin = data.entity;
+                return Observable.of(data.entity);
             },
             (err: HttpErrorResponse) => {
                 if (err.error instanceof Error) {
@@ -62,8 +76,10 @@ export class AuthUserService extends HttpBaseService{
                 } else {
                     console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
                 }
+                return Observable.of(false);
             }
         );
+        //return Observable.of(false);;
     }
 
     public doLogin(account: string, userPassword: string) {
