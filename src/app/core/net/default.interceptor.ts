@@ -51,6 +51,9 @@ export class DefaultInterceptor implements HttpInterceptor {
             case 500:
                 this.goTo(`/${event.status}`);
                 break;
+            case 504: // 连接不到服务器
+                this.goTo(environment.login_url);
+                break;
         }
         return of(event);
     }

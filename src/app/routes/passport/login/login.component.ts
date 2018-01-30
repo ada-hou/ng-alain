@@ -8,7 +8,6 @@ import { AuthUserService } from '../../../service/auth-user.service';
 import { Subscription } from 'rxjs';
 import { HttpStatus } from 'app/enum/http-status.enum';
 import { ISysPlatformUser } from 'app/interface/init-interface';
-import { SysEndService } from 'app/service/sys-end.service';
 
 @Component({
     selector: 'passport-login',
@@ -22,10 +21,7 @@ export class UserLoginComponent implements OnDestroy {
     public error: String = '';
     public type: Number = 0;
     public loading: Boolean = false;
-    public subDoLogin: Subscription;
     public doLoginResult: ISysPlatformUser;
-    public subLoginState: Subscription;
-    public isLogin: Boolean;
     public count: number = 0;
     public interval$: any;
 
@@ -33,7 +29,6 @@ export class UserLoginComponent implements OnDestroy {
         fb: FormBuilder,
         private router: Router,
         private authUserService: AuthUserService,
-        private sysEndService: SysEndService,
         //public msg: NzMessageService,
         private settingsService: SettingsService
     ) {
@@ -109,13 +104,11 @@ export class UserLoginComponent implements OnDestroy {
                 this.loading = false;
                 this.doLoginResult = data;
                 if (this.doLoginResult.statusCode == HttpStatus.OK) {
-                    this.authUserService.isLogin = true;
                     let res = this.authUserService.getRedirectUrl();
                     //console.log(res);
                     this.authUserService.reSetRedirectUrl();
                     this.router.navigate([res]);
                 } else {
-                    this.authUserService.isLogin = false;
                     this.error = this.doLoginResult.message;
                 }
             },
@@ -146,9 +139,5 @@ export class UserLoginComponent implements OnDestroy {
 
     ngOnDestroy(): void {
         if (this.interval$) clearInterval(this.interval$);
-        if (this.isLogin == false) {
-            this.subDoLogin.unsubscribe();
-        }
-        this.subLoginState.unsubscribe();
     }
 }

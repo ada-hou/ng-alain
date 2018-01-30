@@ -19,6 +19,7 @@ import { CallbackComponent } from './callback/callback.component';
 import { Exception403Component } from './exception/403.component';
 import { Exception404Component } from './exception/404.component';
 import { Exception500Component } from './exception/500.component';
+import { AuthGuard } from 'app/guards/auth-guard.service';
 
 const routes: Routes = [
     {
@@ -57,6 +58,7 @@ const routes: Routes = [
     {
         path: 'passport',
         component: LayoutPassportComponent,
+        canActivate: [AuthGuard],
         children: [
             { path: 'login', component: UserLoginComponent, data: {title: '登录'} },
             { path: 'register', component: UserRegisterComponent },

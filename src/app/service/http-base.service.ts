@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Rx';
-import { Subject } from 'rxjs/Subject';
 import { ICommonResult } from 'app/interface/common/common-result';
 
 @Injectable()
 export class HttpBaseService {
 
-    public loading: boolean = true;
+    public _loading: boolean = false;
 
     constructor(
         public http: HttpClient
