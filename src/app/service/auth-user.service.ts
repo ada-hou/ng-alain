@@ -14,7 +14,7 @@ import { HttpStatus } from 'app/enum/http-status.enum';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()
-export class AuthUserService extends HttpBaseService{
+export class AuthUserService extends HttpBaseService {
 
     public isLoggedIn: boolean = false;
 
@@ -69,7 +69,7 @@ export class AuthUserService extends HttpBaseService{
                 this.isLoggedIn = false;
                 return of(err);
             }
-        );
+            );
     }
     // public getLoginState(): Observable<ICommonResult<boolean>> {
     //     // return this._post<boolean>(this.userIsLoginUrl, {});
@@ -102,32 +102,39 @@ export class AuthUserService extends HttpBaseService{
     //     // );
     // }
 
-    public doLogin(account: string, userPassword: string) {
+    public doLogin(account: string, userPassword: string): Observable<ICommonResult<IPlatformUser>> {
         const params = new HttpParams()
             .set('username', account)
             .set('password', userPassword);
-        return this._post<IPlatformUser>(this.userLoginUrl, {}, { params, withCredentials: true})
+        return this._post<IPlatformUser>(this.userLoginUrl, {}, { params, withCredentials: true })
             .map(
-                data => {
-                    this.setLoginState(data);
-                    return data;
-                }
+            data => {
+                this.setLoginState(data);
+                return data;
+            }
             );
     }
 
-    public doLogout(): void {
+    public doLogout(): Observable<ICommonResult<boolean>> {
         this.isLoggedIn = false;
-        this._post<boolean>(this.userLogoutUrl, {}).subscribe(
+        return this._post<boolean>(this.userLogoutUrl, {})
+            .map(
             data => {
-            },
-            (err: HttpErrorResponse) => {
-                if (err.error instanceof Error) {
-                    console.log('An error occurred:', err.error.message);
-                } else {
-                    console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
-                }
+                this.setLoginState(false);
+                return data;
             }
-        );
+            );
+        // return this._post<boolean>(this.userLogoutUrl, {}).subscribe(
+        //     data => {
+        //     },
+        //     (err: HttpErrorResponse) => {
+        //         if (err.error instanceof Error) {
+        //             console.log('An error occurred:', err.error.message);
+        //         } else {
+        //             console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+        //         }
+        //     }
+        // );
     }
 
 

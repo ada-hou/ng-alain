@@ -5,7 +5,7 @@
     },
     "user": {
         "name": "Admin",
-        "avatar": "./assets/img/zorro.svg",
+        "avatar": "http://localhost:8080/ada-platform/userfiles/afbe67e49a3f4449b091fdd7adf88943/images/photo/2018/01/img42.png",
         "email": "cipchk@qq.com"
     },
     "menu": [{

@@ -14,6 +14,10 @@ import { HeaderFullScreenComponent } from './default/header/components/fullscree
 import { HeaderI18nComponent } from './default/header/components/i18n.component';
 import { HeaderStorageComponent } from './default/header/components/storage.component';
 import { HeaderUserComponent } from './default/header/components/user.component';
+// passport
+import { LayoutPassportComponent } from './passport/passport.component';
+import { HeaderNavComponent } from './default/header/components/nav/nav.component';
+
 
 const COMPONENTS = [
     LayoutDefaultComponent,
@@ -31,11 +35,11 @@ const HEADERCOMPONENTS = [
     HeaderThemeComponent,
     HeaderI18nComponent,
     HeaderStorageComponent,
-    HeaderUserComponent
+    HeaderUserComponent,
+    HeaderNavComponent
 ];
 
-// passport
-import { LayoutPassportComponent } from './passport/passport.component';
+
 const PASSPORT = [
     LayoutPassportComponent
 ];

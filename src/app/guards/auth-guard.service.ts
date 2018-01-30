@@ -11,13 +11,14 @@ import 'rxjs/add/operator/catch';
 export class AuthGuard implements CanActivate {
 
     constructor(
+        private router: Router,
         private authUserService: AuthUserService
     ) {
 
     }
 
     canActivate(
-        oute: ActivatedRouteSnapshot,
+        outer: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
         return true;

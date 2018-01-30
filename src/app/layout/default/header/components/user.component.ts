@@ -44,7 +44,10 @@ export class HeaderUserComponent implements OnInit {
 
     logout() {
         this.tokenService.clear();
-        this.authUserService.doLogout();
-        this.router.navigateByUrl(this.tokenService.login_url);
+        this.authUserService.doLogout().subscribe(
+            data => {
+                this.router.navigateByUrl(this.tokenService.login_url);
+            }
+        );
     }
 }
