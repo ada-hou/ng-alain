@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { zip } from 'rxjs/observable/zip';
 import { catchError } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-import { MenuService, SettingsService, TitleService } from '@delon/theme';
+import { MenuService, SettingsService, TitleService, ThemeType, ThemesService } from '@delon/theme';
 import { ACLService } from '@delon/acl';
 import { I18NService } from '../i18n/i18n.service';
 import { SysEndService } from 'app/service/sys-end.service';
@@ -23,12 +23,14 @@ export class StartupService {
         private translate: TranslateService,
         private i18n: I18NService,
         private settingService: SettingsService,
+        private themeServ: ThemesService,
         private aclService: ACLService,
         private titleService: TitleService,
         private httpClient: HttpClient,
         private authUserService: AuthUserService,
         private sysEndService: SysEndService,
         private injector: Injector) {
+
     }
 
     load(): Promise<any> {
@@ -48,7 +50,6 @@ export class StartupService {
                 })
                 ).subscribe(([langData, appData, appInfo, isLoggedIn]) => {
                     // setting language data
-                    console.log(this.authUserService.isLoggedIn);
                     this.translate.setTranslation(this.i18n.defaultLang, langData);
                     this.translate.setDefaultLang(this.i18n.defaultLang);
 
@@ -58,14 +59,18 @@ export class StartupService {
                     //this.settingService.setApp(res.app);
                     this.settingService.setApp(appInfo['entity']);
                     // 用户信息：包括姓名、头像、邮箱地址
-                    this.settingService.setUser(res.user);
+                    // this.settingService.setUser(res.user);
                     // ACL：设置权限为全量
                     this.aclService.setFull(true);
                     // 初始化菜单
-                    this.menuService.add(res.menu);
+                    // this.menuService.add(res.menu);
                     // 设置页面标题的后缀
                     //this.titleService.suffix = res.app.name;
-                    this.titleService.suffix = this.settingService.app["productName"];
+                    this.titleService.suffix = this.settingService.app.productName;
+                    // 设置初始theme
+                    //let theme: ThemeType = "E";
+                    //this.themeServ.setTheme(theme);
+                    //this.settingService.setLayout('theme', theme);
                     // redirect
                     this.goToRedirect();
                 },
@@ -79,6 +84,7 @@ export class StartupService {
     private goToRedirect() {
         let curUrl = location.pathname;
         let index = curUrl.indexOf(environment.login_url);
+
         if (index > 0 && this.authUserService.isLoggedIn == true) {
             this.injector.get(Router).navigate(['/']);
         } else if (this.authUserService.isLoggedIn != true) {

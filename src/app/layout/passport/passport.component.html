@@ -3,7 +3,7 @@
         <div class="head">
             <a>
                 <img class="logo" src="./assets/img/logo-color.svg">
-                <span class="title">{{ settingService.app["productName"] }}</span>
+                <span class="title">{{ settingService.app.productName }}</span>
             </a>
         </div>
         <!-- <p class="desc">企业开发平台</p> -->
@@ -11,7 +11,7 @@
     <router-outlet></router-outlet>
     <global-footer [links]="links">
         <ng-template #copyright>
-            Copyright <nz-icon nzType="copyright"></nz-icon> {{ settingService.app["copyrightYear"] }} <a>ADA</a>出品
+            Copyright <nz-icon nzType="copyright"></nz-icon> {{ settingService.app.copyrightYear }} <a>ADA</a>出品
         </ng-template>
     </global-footer>
 </div>

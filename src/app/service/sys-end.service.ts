@@ -14,7 +14,6 @@ export class SysEndService extends HttpBaseService {
 
     private sysInfoUrl = 'sys/config/appInfo';
     private sysConfigUrl = 'sys/config/ajaxConfig'; // 获取系统配置
-    public productName: string;
 
     constructor(
         public http: HttpClient,

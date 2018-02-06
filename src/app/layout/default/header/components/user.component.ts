@@ -29,9 +29,9 @@ export class HeaderUserComponent implements OnInit {
         @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService) {}
 
     ngOnInit(): void {
-        this.tokenService.change().subscribe((res: any) => {
-            this.settings.setUser(res);
-        });
+        // this.tokenService.change().subscribe((res: any) => {
+        //     this.settings.setUser(res);
+        // });
         // mock
         const token = this.tokenService.get() || {
             token: 'nothing',

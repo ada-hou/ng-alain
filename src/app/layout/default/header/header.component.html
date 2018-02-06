@@ -1,9 +1,9 @@
 <div class="logo">
     <a [routerLink]="['/']">
-        <div class="expanded" style="max-height:40px; color:white">
-            {{settings.app["productName"]}}
-        </div>
-        <img class="collapsed" src="./assets/img/logo.svg" alt="{{settings.app.name}}" style="max-height:30px;" />
+        <!-- <div class="expanded" style="max-height:40px; color:white">
+            {{settings.app.productName]}}
+        </div> -->
+        <img src="./assets/img/logo.svg" alt="{{settings.app.name}}" style="max-height:30px;" />
     </a>
 </div>
 <div class="top-nav-wrap">
@@ -15,7 +15,9 @@
             </div>
         </li>
     </ul>
-    <header-nav></header-nav>
+    <div style="font-size:30px; color:white">
+            {{settings.app.productName}}
+    </div>
     <ul class="top-nav">
         <!-- Settings -->
         <!-- <li class="hidden-xs">
