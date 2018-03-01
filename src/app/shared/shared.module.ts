@@ -12,7 +12,15 @@ import { TranslateModule } from '@ngx-translate/core';
 
 // region: third libs
 import { CountdownModule } from 'ngx-countdown';
-const THIRDMODULES = [ CountdownModule ];
+import { UEditorModule } from 'ngx-ueditor';
+import { NgxTinymceModule } from 'ngx-tinymce';
+import { NzSchemaFormModule } from 'nz-schema-form';
+const THIRDMODULES = [
+    CountdownModule,
+    UEditorModule,
+    NgxTinymceModule,
+    NzSchemaFormModule
+];
 // endregion
 
 // region: your componets & directives
@@ -48,6 +56,7 @@ const DIRECTIVES = [];
         NgZorroAntdExtraModule,
         AlainThemeModule,
         ...ABCMODULES,
+        AlainACLModule,
         // i18n
         TranslateModule,
         // third libs
