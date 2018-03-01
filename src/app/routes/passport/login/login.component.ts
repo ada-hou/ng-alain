@@ -1,8 +1,10 @@
 import { SettingsService } from '@delon/theme';
-import { Component, OnDestroy, Inject } from '@angular/core';
+import { Component, OnDestroy, Inject, Optional } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
+import { SocialService, SocialOpenType, ITokenService, DA_SERVICE_TOKEN } from '@delon/auth';
+import { ReuseTabService } from '@delon/abc';
 import { environment } from '@env/environment';
 import { AuthUserService } from '../../../service/auth-user.service';
 import { Subscription } from 'rxjs';
@@ -13,7 +15,7 @@ import { ISysPlatformUser } from 'app/interface/init-interface';
     selector: 'passport-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.less'],
-    providers: []
+    providers: [ SocialService ]
 })
 export class UserLoginComponent implements OnDestroy {
 
@@ -26,12 +28,14 @@ export class UserLoginComponent implements OnDestroy {
     public interval$: any;
 
     constructor(
+        private authUserService: AuthUserService,
         fb: FormBuilder,
         private router: Router,
-        private authUserService: AuthUserService,
-        //public msg: NzMessageService,
-        private settingsService: SettingsService
-    ) {
+        public msg: NzMessageService,
+        private settingsService: SettingsService,
+        private socialService: SocialService,
+        @Optional() @Inject(ReuseTabService) private reuseTabService: ReuseTabService,
+        @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService) {
         this.form = fb.group({
             userName: [null, [Validators.required]],
             password: [null, Validators.required],

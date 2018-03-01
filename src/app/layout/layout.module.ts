@@ -16,7 +16,6 @@ import { HeaderStorageComponent } from './default/header/components/storage.comp
 import { HeaderUserComponent } from './default/header/components/user.component';
 // passport
 import { LayoutPassportComponent } from './passport/passport.component';
-import { HeaderNavComponent } from './default/header/components/nav/nav.component';
 
 
 const COMPONENTS = [
@@ -35,8 +34,7 @@ const HEADERCOMPONENTS = [
     HeaderThemeComponent,
     HeaderI18nComponent,
     HeaderStorageComponent,
-    HeaderUserComponent,
-    HeaderNavComponent
+    HeaderUserComponent
 ];
 
 
