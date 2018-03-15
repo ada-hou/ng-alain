@@ -20,6 +20,7 @@ import { Exception403Component } from './exception/403.component';
 import { Exception404Component } from './exception/404.component';
 import { Exception500Component } from './exception/500.component';
 import { AuthGuard } from 'app/guards/auth-guard.service';
+import { CusInfoComponent } from 'app/routes/customer/cus-info/cus-info.component';
 
 const routes: Routes = [
     {
@@ -43,7 +44,8 @@ const routes: Routes = [
             { path: 'pages', loadChildren: './pages/pages.module#PagesModule' },
             { path: 'logics', loadChildren: './logics/logics.module#LogicsModule' },
             { path: 'extras', loadChildren: './extras/extras.module#ExtrasModule' },
-            { path: 'pro', loadChildren: './pro/pro.module#ProModule' }
+            { path: 'pro', loadChildren: './pro/pro.module#ProModule' },
+            { path: 'customer/info', component: CusInfoComponent },
         ]
     },
     // 全屏布局

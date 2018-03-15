@@ -16,6 +16,7 @@ import { CallbackComponent } from './callback/callback.component';
 import { Exception403Component } from './exception/403.component';
 import { Exception404Component } from './exception/404.component';
 import { Exception500Component } from './exception/500.component';
+import { CusInfoComponent } from './customer/cus-info/cus-info.component';
 
 @NgModule({
     imports: [ SharedModule, RouteRoutingModule ],
@@ -32,7 +33,8 @@ import { Exception500Component } from './exception/500.component';
         CallbackComponent,
         Exception403Component,
         Exception404Component,
-        Exception500Component
+        Exception500Component,
+        CusInfoComponent
     ]
 })
 
